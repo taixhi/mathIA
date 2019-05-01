@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage{fontspec}
 \usepackage{titlesec}
+\usepackage{float}
 \usepackage{apacite}
 \usepackage{csvsimple,longtable,booktabs}
 
@@ -19,6 +20,7 @@
 \textheight 8.7in
 \textwidth 6.65in
 \linespread{1.2}
+\setlength{\parskip}{1em}
 \setlength{\parindent}{0cm} % Default is 15pt.
 
 \fontencoding{T1}
@@ -41,7 +43,7 @@
 
 \section{Introduction}\label{section-introduction}
 
-\quad\quad With the rise of information age came the increase in significance of online presence. 
+With the rise of information age came the increase in significance of online presence. 
 It is not without a doubt, that especially within the younger generation, prominence of an individual is often evaluated based on their online popularity. 
 Furthermore, empirically speaking, such evaluation of individuals based has increased even more in the past few years.
 Instagram, being one of the most commonly used social media platforms, boasts more than 1 billion monthly users \cite{techcrunch:online}, displaying its inconceivable popularity.
@@ -56,28 +58,43 @@ As expected, these numeric values are often used by the younger generations as i
 
 However, despite the society's reliance on Instagram engagement and follower count as a metric for the determination of one's success, there has been little research regarding what these values mean, and how they relate to each other.
 As an active user of Instagram myself, I was especially interested in the factors which determine the number of likes a user attains, and how these factors are related to each other.
+Of the many properties an user have, two properties of a Instagram user mostly define their online success: number of likes, and the number of followers.
+
+The two values are helpful in examining an user in multitude of ways, such as, but not limited to:
+\begin{enumerate}  
+\item The relative popularity of a user in social contexts (This is critical for corporations which may decide to partner up with Instagram "influencers" to promote their product to a niche audience)
+\item The authenticity of a user. Through third party platforms, it is possible to purchase "likes" and "followers" in the hopes of appearing popular. Hence, it is common practice for corporations and individuals to assess a user's authenticity through looking at the ratio of like and follower counts, and see if it is within the normal range (When users purchase followers, many of such followers will be inactive, and won't interact with the posts, leading to lower number of likes in their post despite having a large number of followers.)
+\item The quality of content. Objectively better content (aesthetic images, good-looking women and professional high-quality images) often attract more engagement than lower-quality content (such as "selfies", reposted content and memes). Hence, relatively high number of likes to number of followers would imply the quality of the users' contents.
+\end{enumerate}
+
+The underpinning principle behind these points of judgement is in our inherent belief that number of followers and likes are correlated, and when a users properties deviate from the typical correlation, we find that the user have an atypical identity, such as a professional photographer, model, music artist etc., or on the other side of the spectrum, automated bots, fake profiles and fabricated online personality.  
+
 Since the number of likes a user attains is dependent on the number of people who see the user's content, it would be reasonable to hypothesise that the number of followers the user would have will affect the number of likes a user gets. 
+
 Hence, through this exploration, I aim to find the relationship between the average number of likes a user gets and their follower count, in order to determine how exactly these values are related, if at all.
+
+\subsection{Research Hypothesis}
+In this exploration, we aim to find whether there exists a correlation between the follower count of a user and the average likes of 9 most recent images the users have posted. The research hypothesis is that there will be a significant correlation between the two variables.
 
 \section{Dataset}\label{section-dataset}
 
 \subsection{Data Collection Method}
 
-\quad\quad In identifying the relationship between the follower count and the number of likes, a comprehensive data about Instagram users are required. The research will start with three randomly chosen "seed" users in which their followers are crawled as well. This will allow for a compilation of a reasonably balanced and diverse data set of users, which can approximate the active user population of Instagram. A crawler written in Python was created, with an array containing all followers of the three seed users, and their user properties, is private, number of likes, verification status, biography url, number of media, profile category, number of followers, and number of following users. The program was ran on a virtual machine and left running for 5 hours. Through this method, a total of 1023 user data was collected. Of those, 875 of the s
+In identifying the relationship between the follower count and the number of likes, a comprehensive data about Instagram users are required. The research will start with three randomly chosen "seed" users in which their followers are crawled as well. This will allow for a compilation of a reasonably balanced and diverse data set of users, which can approximate the active user population of Instagram. A crawler written in Python was created, with an array containing all followers of the three seed users, and their user properties, is private, number of likes, verification status, biography url, number of media, profile category, number of followers, and number of following users. The program was ran on a virtual machine and left running for 5 hours. Through this method, a total of 1023 user data was collected. Of those, 875 of the s
 
-The collected data was saved in to a csv file in the following format, with the raw data being available in the Appendix.
+The collected data was saved in to a csv file in the following format, with the raw data made available in the Appendix.
 
 \subsection{Data Processing}
-\begin{figure}[h!]
+\begin{figure}[H]
   \center
   \includegraphics[width=0.75\linewidth]{images/row_data_graph.png}
   \caption{Follower count to average like count plotted}
   \label{fig:raw_data}
 \end{figure}
 
-Figure \ref{fig:raw_data} shows that there are some anomalies in the data caused due to disproportionate amount of followers and likes large accounts ran by corporations such as @9gag. Hence, we specify the range of our dataset to be $\mathit{follower\_count} < 10,000$, and $\mathit{likes\_average\_count} < 5000$ to ensure that the these values are within normal range. After the processing is done, Figure \ref{fig:processed_data} shown below is obtained. Much more pleasant. \\
+Figure \ref{fig:raw_data} shows that there are some anomalies in the data caused due to disproportionate amount of followers and likes attracted by large accounts ran by corporations such as @9gag. Hence, we specify the range of our dataset to be $\mathit{follower\_count} < 10,000$, and $\mathit{likes\_average\_count} < 5000$ to ensure that the these values are within normal range. After the processing is done, Figure \ref{fig:processed_data} shown below is obtained. Much more pleasant.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \center
   \includegraphics[width=0.75\linewidth]{images/processed_data_graph.png}
   \caption{Follower count to average like count plotted}
@@ -86,7 +103,7 @@ Figure \ref{fig:raw_data} shows that there are some anomalies in the data caused
 
 Additionally, as the distribution of data appears skewed, a logarithmic scale will be used to normalise the distribution. The graph we obtain is shown below ( \ref{fig:log_data}).
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \center
   \includegraphics[width=0.75\linewidth]{images/log_data_graph.png}
   \caption{Follower count to average like count plotted}
@@ -106,7 +123,7 @@ Upon counting, the number of variable pairs $ \left( x _ { i }, y _ { i } \right
 {n = 872}
 \end{align}
 
-\subsection{Value Calculation}
+\subsection{Pearson's Correlation Coefficient}
 First, to calculate the sample mean value for both variables like count $x$, follower count $y$
 \begin{align}
 \overline { x } = \frac { 1 } { n } \sum _ { i = 1 } ^ { n } x _ { i } = \frac { 1 } { 872 } (5.04 + 3.81 + \ldots + 11.2 + 6.59)  { = 4.58}
@@ -121,17 +138,50 @@ r _ { x y } &= \frac {\left( 5.04 - 4.58 \right) \left( 4.06 - 6.57\right)  + \l
 r _ { x y } &= {0.771762}
 \end{align}
 
-We then calculate the coefficient of determination ($r^ {2}$) to determine how close the model fits the data.
+The computed value of the Pearson's coefficient of determination $0.77$ shows that the logs of two variables are strongly correlated, with a positive relationship. Although from this observation we can not conclude any causal relationship between the two, it fits our intuitive understanding that the greater number of followers will lead to a higher number of likes, as more people would be seeing their content.
+%
+\subsection{Statistical Hypothesis Testing}
+As our preliminary experiment shows, there seems to exist an apparently significant relationship between  $follower\_count$ correlates with $likes\_average\_count$ and hence, we will conduct a statistical hypothesis test to see if it is the case.
+The null hypothesis states that there exists no correlation between the two variables. Mathematically, it can be expressed in the following manner:
+\begin{align}
+H _ { 0 } : \rho = 0
+\end{align}
+Conversely, we define the alternative hypothesis to be as follows:
+\begin{align}
+H _ { 1 } : \rho \neq 0
+\end{align}
+In this experiment, we will use the significant value of 0.5 ($\alpha=0.5$)
+\subsection{Linear Regression}
+
+With a strong correlation using a logarithmic scale, it would make sense to construct a mathematical model for it.  
+
+\begin{figure}[H]
+  \center
+  \includegraphics[width=0.75\linewidth]{images/regression_graph.png}
+  \caption{Follower count to average like count plotted}
+  \label{fig:linear_regression}
+\end{figure}
+
+First, I attempted to plot the two log values and ran linear regression using a Python library Matplotlib \cite{Hunter:2007}, and got the graph shown in \ref{fig:linear_regression}. The line of regression goes through the middle of the scatter plot, displaying high accuracy. With this result in mind, I can begin calculating the gradient and the y-interept of the graph, ultimately deriving the mathematical formula for this model.
+
+The final form of the linear regression can be expressed in the forrm $y=mx+c$, and hence, $m$ and $c$ will be the values we aim to find, given our dataset of y and x. The two values can be found using the following formula for linear regression. 
+
+\begin{align}
+%&m = \frac { \sum y _ { i } x _ { i } - \overline { y } \sum x _ { i } } { \sum x _ { i } ^ { 2 } - \overline { x } \sum x _ { i } } \\
+&b = \frac { \overline { y } \sum x _ { i } ^ { 2 } - \overline { x } \sum y _ { i } x _ { i } } { \sum x _ { i } ^ { 2 } - \overline { x } \sum x _ { i } }
+\end{align}
+
+
+\section{Evaluation}\label{section-experiments}
+We then calculate the coefficient of determination ($r^ {2}$) to determine how close the model fits the data. 
 
 \begin{align}
 R ^ { 2 } = \frac { S S R } { S S T } = \frac { \sum \left( \hat { y } _ { i } - \overline { y } \right) ^ { 2 } } { \sum \left( y _ { i } - \overline { y } \right) ^ { 2 } }
 \end{align}
 
-\section{Experiments}\label{section-experiments}
+
 
 \section{Conclusions}\label{section-conclusions}
-
-\section{Sample}\label{section-sample}
 
 \section{Appendix}\label{section-appendix}
 
